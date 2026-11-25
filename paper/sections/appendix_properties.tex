@@ -1,0 +1,24 @@
+\section*{Appendix A --- Property definitions}
+\label{app:properties}
+
+\begin{itemize}
+\item \textbf{Net charge @ pH 7.4}: Henderson--Hasselbalch over D/E/C/Y/H/K/R
+  with standard pKa, plus termini, divided by length.
+\item \textbf{pI}: bisection root of the charge curve.
+\item \textbf{GRAVY}: Kyte--Doolittle mean.
+\item \textbf{Surface apolar fraction}: exposure from the \emph{input}
+  backbone (CA neighbours within 10\,\AA; the less-buried half of residues
+  counts as exposed); fraction of \{G,P,A,V,I,L,M,F,W,Y\} at exposed sites.
+  \emph{Validation}: against a Shrake--Rupley SASA computed on N/CA/C/O with a
+  1.4\,\AA{} probe, the CA-burial exposure
+  agrees on 65--76\% of residues (chance 50\%) and Spearman-correlates with
+  real SASA at $\rho = -0.38$ to $-0.59$ on the
+  six backbones tested. The proxy is therefore informative but coarse, and
+  absolute surface numbers should not be
+  compared with SASA-based hydrophobicity scores such as SAP.
+\item \textbf{Aggregation 5-mer fraction}: fraction of 5-residue windows that
+  are $\geq$80\% apolar.
+\item \textbf{Recovery}: identity to the native sequence at aligned positions.
+\item \textbf{Diversity}: mean pairwise Hamming distance over the designs of one
+  (arm, backbone) cell (16 in the main run).
+\end{itemize}

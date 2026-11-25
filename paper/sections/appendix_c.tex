@@ -1,0 +1,32 @@
+\section*{Appendix C --- Reproducibility and data availability}
+\label{app:reproducibility}
+
+\begin{itemize}
+\item Code: \texttt{prep\_targets.py}, \texttt{guided\_run.py},
+  \texttt{bench30\_grid.py}, \texttt{agg\_grid.py}, \texttt{dev\_fold.py},
+  \texttt{analyze\_bench30.py}, \texttt{px\_batch.py}, \texttt{px\_eval.py}.
+\item Data: \texttt{runs/bench30\_p16/\{arm\}/\{backbone\}/seqs/*.fa} (5,936
+  designs) and \texttt{results/p16/AGGREGATE\_P16.md} (the 16-design aggregate
+  that every \S4.1 number comes from), plus the 8-design predecessor
+  \texttt{runs/bench30/\{arm\}/\{backbone\}/seqs/*.fa} (2,688 designs) used for
+  the \S4.1b ablation, \texttt{results/b30\_designs.tsv} (the full per-design
+  matrix: arm $\times$ backbone $\times$ design with properties, recovery and
+  diversity, the source of every per-backbone number in \S4.5),
+  \texttt{runs/px/px\_scTM.tsv} (Protenix fold-ins), plus
+  \texttt{results/AGGREGATE.md} (deduplicated aggregate with paired bootstrap
+  and Holm columns).
+\item Backbone list: \texttt{data/targets30.txt}.
+\item Environment: Python 3.11, torch 2.2.2, fair-esm ESMFold v1 with a
+  vendored openfold (three patches documented in the repository), Protenix-2 in
+  its own environment with \texttt{--use\_msa False}.
+\item Dataset documentation: \texttt{DATASHEET.md}; artifact entry point:
+  \texttt{README.md} (setup, reproduction order, known pitfalls); runtime pins:
+  \texttt{requirements.txt}; licence: \texttt{LICENSE} (code MIT, text and
+  figures CC BY 4.0).
+\item Evaluation harness used for the second oracle: Protenix-2 with
+  \texttt{--use\_msa False}; per-sequence fold-ins in
+  \texttt{results/px\_scTM.tsv}.
+\item Figures: \texttt{figs/fig1\_control\_plane.png},
+  \texttt{figs/fig2\_property\_vs\_sctm.png},
+  \texttt{figs/fig3\_leakage.png}.
+\end{itemize}

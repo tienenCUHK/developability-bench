@@ -1,0 +1,26 @@
+\section{Discussion}
+\label{sec:discussion}
+
+\paragraph{Why is control nearly free?}
+The properties are linear in composition, so guidance only re-weights first
+moments at each position; it does not move the backbone-conditioned
+high-density region. Consistent with this, the property-quality coupling we
+measure \emph{between designs} is positive (GRAVY vs scTM $+0.61$, aggregation
+vs scTM $+0.56$) but the range we move ($\Delta$GRAVY $\approx 0.4$) is small
+relative to between-design dispersion, so no second-order collapse is
+triggered.
+
+\paragraph{When does it stop being free?}
+Two observed boundaries: (i) pushing a property that is strongly coupled to
+quality (GRAVY at $\lambda{=}4$ already lowers scTM to 0.9257, and
+$\lambda{=}8$ yields unfolded sequences); (ii) pushing a property whose weight
+vector is correlated with another (GRAVY $\to +20$ charge). Controllability is
+therefore not a property of a model but of the (objective $\times$ weight
+vector) pair.
+
+\paragraph{Implications.}
+For weakly coupled properties (surface hydrophobicity, net charge) retraining
+is unnecessary: the closed-form tilt is larger in effect, reversible, and
+cheaper. For strongly coupled objectives (stability, expression) a prior shift
+or RL is still required. In both cases acceptance must report the properties
+that were \emph{not} requested.

@@ -1,0 +1,48 @@
+\section{Related work}
+\label{sec:related}
+
+\paragraph{Inverse folding.}
+Structured Transformer~\cite{struc_transformer} (2019) introduced the kNN graph
++ autoregressive formulation; GVP-GNN~\cite{gvp} (2021) added geometric vector
+perceptrons; ProteinMPNN~\cite{proteinmpnn} (2022) simplified to a
+message-passing encoder--decoder with a \emph{random decoding order} and became
+the field's default; ESM-IF1~\cite{esm_if1} (2022) showed that 12 M AlphaFold2
+structures buy more than architecture (+9.4 pp over GVP-GNN, and +13.3 pp over
+the same architecture trained on CATH only in our reading of its tables);
+PiFold~\cite{pifold} (2023)
+decodes in one shot; LigandMPNN~\cite{ligandmpnn} (2025) conditions on atomic
+context. All of these are evaluated on recovery and scTM; none measures
+controllability.
+
+\paragraph{Developability-oriented design.}
+SolubleMPNN~\cite{soluble_mpnn} (2024) retrains ProteinMPNN on the same PDB
+snapshot minus 17,369 transmembrane entries; HyperMPNN~\cite{hypermpnn} (2024)
+retrains on thermophile AF2 structures and, in its own measurements, pays a
+large expression tax (soluble yield 0.4 vs 25.8 mg/L for the parent model);
+MembraneMPNN~\cite{membranempnn} ships conditioned weights
+without a paper. Their common structure is a \textbf{prior shift}, which is
+irreversible and leaks into every property at once.
+
+\paragraph{Inference-time control.}
+Classifier guidance, classifier-free guidance, SMC/Feynman--Kac particle
+steering (applied to RFdiffusion in 2025~\cite{fk_rfdiffusion}), and
+plug-and-play discrete guidance (ProteinGuide,
+2025~\cite{discrete_guidance,proteinguide}) whose AA-ARM update is
+\[
+  \tilde{p}(x_i{=}a \mid x_S) \;\propto\;
+  p_\theta(a \mid x_S)
+  \left[
+    \frac{p(y \mid x_S \cup a)}{p(y \mid x_S)}
+  \right]^{\gamma}.
+\]
+ZetaDial (2026)~\cite{zetadial} is the closest protein work: a global charge
+bias solved per protein, reported to collapse foldability at strong tilt. No
+work compares this family against retrained developability models under one
+protocol.
+
+\paragraph{Benchmarks.}
+ProteinInvBench~\cite{proteininvbench} (NeurIPS 2023 D\&B) standardises
+single-chain, multi-chain and de novo tasks; MotifBench~\cite{motifbench} (2025)
+standardises motif scaffolding; ProteinGym~\cite{proteingym} and
+FLIP~\cite{flip} cover sequence--function. None measures \emph{whether a model
+can be steered}, which is the gap this benchmark fills.

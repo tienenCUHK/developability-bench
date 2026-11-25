@@ -1,0 +1,117 @@
+\section{Benchmark design}
+\label{sec:method}
+
+\subsection{Backbones}
+\label{sec:backbones}
+
+35 monomeric PDB entries, chain A, 56--415 residues, downloaded and validated
+by \texttt{prep\_targets.py} (CA count 50--450, parseable chain A). The list is
+fixed in \texttt{data/targets30.txt} so that future arms cannot change the
+problem set.
+
+The composition of the set --- length distribution, experimental method and
+resolution --- is tabulated in Table~\ref{tab:backbones} in the appendix.
+
+The set is deliberately broad in fold space but \textbf{skewed small} (more
+than half are under 100 residues), which matches the monomer regime where
+inverse folding is usually benchmarked but not the 150--300 residue range that
+dominates real design campaigns. Five NMR entries are included because they are
+standard small-monomer benchmarks; ProteinMPNN is known to recover native
+sequences poorly on NMR structures, and those backbones contribute some of the
+low-scTM cells in every arm. Both points are revisited in the limitations.
+
+\subsection{Arms}
+\label{sec:arms}
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \begin{tabular}{@{}llp{2.2in}@{}}
+    \toprule
+    Family & Arm & Mechanism \\
+    \midrule
+    published & ProteinMPNN \texttt{v\_48\_020} & baseline (a seed-1 replicate is run only to measure repeatability, and is not an arm) \\
+    published & SolubleMPNN \texttt{v\_48\_020} & retrained without transmembrane entries \\
+    published & HyperMPNN \texttt{v48\_020\_epoch300\_hyper} & retrained on thermophile AlphaFold2 structures \\
+    published & MembraneMPNN global-label, fed ``soluble'' & conditioned input \\
+    published & LigandMPNN \texttt{v\_32\_020} on backbone atoms & extra atom-context encoder \\
+    guided & surf $\lambda$10 & per-residue apolar penalty on exposed sites \\
+    guided & agg $\lambda$10 & windowed (5-residue) exposed apolar penalty \\
+    guided & charge $\lambda{+}3$ & constant per-AA charge tilt \\
+    guided & surf10 / charge$-2$ & two-property tilt (acidic branch) \\
+    guided & surf10 / charge$+2$ & two-property tilt (basic branch) \\
+    \bottomrule
+  \end{tabular}
+  \caption{Benchmark arms and their mechanisms.}
+  \label{tab:arms}
+\end{table}
+
+Sixteen designs per (arm, backbone), temperature 0.1, fixed seed. The main
+table below is this 16-design run; a predecessor run at 8 designs per cell is
+kept in \texttt{results/AGGREGATE.md} and is used only for the temperature
+ablation.
+
+\subsection{Guidance: the AO-ARM closed form}
+\label{sec:guidance}
+
+ProteinMPNN samples residues in a random order and conditions on any subset of
+known positions, i.e.\ it \emph{is} an any-order autoregressive model.
+ProteinGuide's update for AO-ARMs multiplies the per-position categorical by a
+likelihood ratio. For a property that is linear in amino-acid composition,
+$\phi(a)=\sum_a n_a w_a$, that ratio is position-independent:
+\[
+  \log \tilde{p}(x_i{=}a \mid x_S)
+  = \log p_\theta(a \mid x_S) - \lambda \cdot w_a + \mathrm{const},
+\]
+so guidance is \textbf{exactly} a constant per-amino-acid logit bias --- no
+predictor calls, no approximation. ProteinMPNN's sampler computes
+\texttt{softmax(logits/T + bias/T)}, hence we store $b = \lambda T$ to obtain an
+effective logit shift $\lambda$. Surface hydrophobicity uses a per-residue
+version, $b_{i,a} = -\lambda \cdot h_a \cdot s_i$, where $s_i \in \{0,1\}$
+marks exposure computed from the \textbf{input backbone} (C$\alpha$ neighbour
+count, median split), never from the design. Multi-property arms add the biases.
+
+\paragraph{Boundary.}
+Non-linear or neighbour-dependent objectives (aggregation patches beyond the
+windowed proxy, $\pi$-stacking, stability) need ProteinGuide's TAG approximation
+and are out of scope here.
+
+\subsection{Metrics}
+\label{sec:metrics}
+
+\begin{itemize}
+\item \textbf{scTM}: TM-score of the ESMFold-refolded design~\cite{esmfold}
+  against the input backbone, at valid sites.
+\item \textbf{recovery}: identity to the native sequence.
+\item \textbf{diversity}: mean pairwise Hamming within the design set of one
+  (arm, backbone) cell (16 designs in the main run, 8 in the \S4.1b ablation).
+\item \textbf{controllability slope $k$}: OLS slope of achieved property on
+  requested $\lambda$.
+\item \textbf{leakage}: $\sum_{j\neq\mathrm{target}} |\Delta\phi_j|$
+  normalised by $|\Delta\phi_{\mathrm{target}}|$.
+\end{itemize}
+
+\subsection{Statistical protocol}
+\label{sec:stats}
+
+Unit of analysis is the \textbf{backbone}, never the design. For every arm
+comparison we form per-backbone means, then a paired bootstrap over backbones
+($B = 10{,}000$) and report the 95\% percentile interval. Repeatability is
+estimated by re-running ProteinMPNN with a different sampling seed on all 35
+backbones (same weights, same temperature), which bounds the resolution of
+every comparison. Designs are never pooled across backbones. Nine comparisons are made
+against one baseline, so we report raw bootstrap $p$-values \textbf{and}
+Holm-adjusted $p$-values and treat an effect as confirmed only if it survives
+Holm at $\alpha = 0.05$.
+
+\textbf{Power.} The seed-1 replicate gives the paired per-backbone standard
+deviation of a null comparison directly, sd = 0.0240 scTM over 35 backbones.
+With that dispersion the minimum detectable effect at 80\% power is
+\textbf{0.0114 scTM (1.35\% relative)} for a single uncorrected comparison and
+\textbf{0.0147 scTM (1.74\%)} once the Holm threshold for nine comparisons is
+applied. This number is the honest interpretation of every null result in this
+paper: the data exclude effects larger than about 0.015 scTM, not effects of
+zero. It also explains why the guided arms' point estimates ($+0.003$ to
+$+0.009$) cannot be called improvements, and why HyperMPNN's $-0.064$, which is
+four times the corrected threshold, is the only effect of a size this benchmark
+can resolve.

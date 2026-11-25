@@ -1,0 +1,243 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "sc": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "dct": "http://purl.org/dc/terms/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "data": "cr:data",
+    "dataType": "cr:dataType",
+    "examples": "cr:examples",
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileObject": "cr:FileObject",
+    "fileProperty": "cr:fileProperty",
+    "format": "cr:format",
+    "isEnumeration": "cr:isEnumeration",
+    "recordSet": "cr:RecordSet",
+    "references": "cr:references",
+    "source": "cr:source",
+    "subField": "cr:subField"
+  },
+  "@type": "sc:Dataset",
+  "name": "DevMPNN-Bench",
+  "description": "Evaluation resource for developability-oriented inverse folding. Contains 35 monomeric PDB backbones (chain A, 56-415 residues, 30 X-ray and 5 NMR), 11 design arms (ProteinMPNN, SolubleMPNN, HyperMPNN, MembraneMPNN global-label, LigandMPNN, and five closed-form guidance arms), 5,936 designs at 16 designs per arm-backbone cell, per-design physicochemical properties with native recovery and diversity, ESMFold-v1 refold scTM for every design, Protenix-2 single-sequence scTM for a robustness subset, and aggregates with paired bootstrap confidence intervals and Holm-corrected p-values. The resource is intended for evaluating what developability control costs in foldability, how much unrequested properties leak, and how arm-level means hide per-backbone failure modes.",
+  "version": "1.1",
+  "license": "https://opensource.org/licenses/MIT",
+  "url": "https://github.com/ANONYMIZED/devmpnn-bench",
+  "creator": {
+    "@type": "sc:Organization",
+    "name": "Anonymous Authors"
+  },
+  "datePublished": "2026-11-25",
+  "citeAs": "Anonymous Authors. DevMPNN-Bench: What Developability Benchmarks Do Not Measure. NeurIPS 2027 Evaluations & Datasets track submission (under review).",
+  "keywords": [
+    "protein design",
+    "inverse folding",
+    "benchmark",
+    "developability",
+    "controlled generation",
+    "evaluation methodology"
+  ],
+  "rai:dataCollectionTimeframe": [
+    "2026-11-17T00:00:00",
+    "2026-11-25T00:00:00"
+  ],
+  "rai:dataManipulationProtocol": "Folded outputs were deduplicated keeping the last row per (arm, backbone, design) identifier; no rows were filtered by value. One documented alignment artefact (backbone 1TEN, 90 vs 89 CA) is retained and disclosed in the paper Limitations, with an exclusion sensitivity analysis.",
+  "rai:dataPreprocessingProtocol": "Properties are computed from designed sequences: net charge at pH 7.4 from a standard pKa table, isoelectric point by bisection, GRAVY from the Kyte-Doolittle scale, aggregation propensity as the fraction of exposed 5-residue windows with >=3 apolar residues, and surface apolar fraction as the apolar fraction over the less-buried half of residues (CA burial proxy, validated against Shrake-Rupley SASA on six backbones).",
+  "rai:dataAnnotationProtocol": "Labels are computational, not human annotations. Native recovery is the per-design identity to the PDB chain-A sequence. scTM is TM-score of the ESMFold-v1 refolded design against the input backbone (chain A, three recycles). The second-oracle scTM uses Protenix-2 in single-sequence mode. Physicochemical labels are computed from sequence with the definitions in Appendix A of the paper. No human annotators, annotator demographics or annotation platform are involved.",
+  "rai:dataBiases": "The 35 backbones are all monomeric, soluble and experimental; 19 of 35 are under 100 residues and 5 are NMR entries. Absolute scTM values are therefore optimistic for the 150-300 residue regime that dominates real design campaigns. Property proxies are coarse: surface apolarity is a burial proxy, not SASA, and aggregation is a heuristic window count with no experimental calibration.",
+  "rai:dataLimitations": "Single scenario (soluble monomers); 19 of 35 backbones are under 100 residues, so absolute scTM values are optimistic for the 150-300 residue regime. One sampling temperature (T=0.1) for the main table. Only composition-linear objectives are covered. No wet-lab validation. All designed sequences and refolded structures are synthetic model outputs, not experimental measurements, and must not be interpreted as validated proteins. Five NMR structures contribute low-scTM cells for every arm.",
+  "rai:dataSocialImpact": "The resource is an evaluation artifact for protein design; it does not itself produce functional proteins. Dual-use risk is the usual one for protein design tooling and is not increased by this benchmark, which measures failure modes rather than optimising designs. Compute cost: about 20 A6000 GPU-hours for the full sweep plus a few CPU-hours of sampling.",
+  "rai:dataUseCases": [
+    "Benchmarking controllability and leakage of developability-oriented inverse-folding methods",
+    "Auditing evaluation practice: saturation, arm-mean aggregation, and oracle dependence",
+    "Reproducing paired, Holm-corrected arm comparisons with an explicit minimum detectable effect",
+    "Studying per-backbone tail behaviour of design models"
+  ],
+  "rai:dataReleaseMaintenancePlan": "Released with the paper under MIT (code) and CC BY 4.0 (text and figures). The per-design matrix and aggregates are versioned in the repository; backbones are identified by RCSB PDB accession so they can be re-fetched. No further maintenance is planned beyond fixing reported errors; corrections will be listed in a CHANGELOG.",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "designs-matrix",
+      "name": "b30_designs.tsv",
+      "contentUrl": "results/b30_designs.tsv",
+      "encodingFormat": "text/tab-separated-values",
+      "sha256": "d0a90ac7ed3bcd2b6ccf6d42be66286810438b03cce7f6e70f11b2c7a5c82721",
+      "description": "Per-design matrix: arm, target, sequence, recovery, diversity, length, charge74, pI, gravy, surf_apolar, agg5frac."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "aggregate-p16",
+      "name": "AGGREGATE_P16.md",
+      "contentUrl": "results/p16/AGGREGATE_P16.md",
+      "encodingFormat": "text/markdown",
+      "sha256": "b695277e0bdeed70b1226daca38d97a90c7ca26f9238370e273330d0cd1e883e",
+      "description": "Arm-level aggregates with paired bootstrap intervals, raw and Holm p-values, property deltas, per-backbone heterogeneity, and the coverage note."
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "protenix-sctm",
+      "name": "px_scTM.tsv",
+      "contentUrl": "results/px_scTM.tsv",
+      "encodingFormat": "text/tab-separated-values",
+      "sha256": "ebe134cb8ecfa307592571cd286d85eb063ff5c92e876ff92dd60e718d316b70",
+      "description": "Second-oracle scTM from Protenix-2 single-sequence refolding on the robustness subset."
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "designs",
+      "name": "designs",
+      "description": "One row per designed sequence.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "name": "arm",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "designs-matrix"
+            },
+            "extract": {
+              "column": "arm"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "target",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "designs-matrix"
+            },
+            "extract": {
+              "column": "target"
+            }
+          },
+          "description": "RCSB PDB accession of the input backbone."
+        },
+        {
+          "@type": "cr:Field",
+          "name": "seq",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "designs-matrix"
+            },
+            "extract": {
+              "column": "seq"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "recovery",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "designs-matrix"
+            },
+            "extract": {
+              "column": "recovery"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "diversity",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "designs-matrix"
+            },
+            "extract": {
+              "column": "diversity"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "charge74",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "designs-matrix"
+            },
+            "extract": {
+              "column": "charge74"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "pI",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "designs-matrix"
+            },
+            "extract": {
+              "column": "pI"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "gravy",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "designs-matrix"
+            },
+            "extract": {
+              "column": "gravy"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "surf_apolar",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "designs-matrix"
+            },
+            "extract": {
+              "column": "surf_apolar"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "name": "agg5frac",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "designs-matrix"
+            },
+            "extract": {
+              "column": "agg5frac"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "dct:conformsTo": [
+    "http://mlcommons.org/croissant/1.1",
+    "http://mlcommons.org/croissant/RAI/1.0"
+  ],
+  "rai:dataCollectionType": [
+    "Secondary Data analysis",
+    "Experiments",
+    "Software Collection"
+  ],
+  "rai:dataCollectionRawData": "Input backbones are public-domain experimental structures from the RCSB Protein Data Bank, identified by accession in Table B.1 and data/targets30.txt. Model weights come from the upstream ProteinMPNN, LigandMPNN and HyperMPNN releases. No raw human or web data is collected.",
+  "rai:personalSensitiveInformation": "None. The dataset contains no human data, no personally identifiable information and no annotator information; all sequences are computationally generated and all structures are public PDB entries.",
+  "rai:dataCollection": "Backbone structures were downloaded from the RCSB PDB (public-domain experimental structures). Designed sequences were generated computationally by the 11 arms; refolded structures were predicted by ESMFold v1 and Protenix-2. No human subjects, no web scraping, no scraped personal data."
+}

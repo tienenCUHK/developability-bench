@@ -1,0 +1,106 @@
+\section*{Appendix B --- Additional tables}
+\label{app:additional-tables}
+
+% Tables moved out of the body in the v3 revision; they are numbered B.1--B.3
+% (the body tables are 1--6). The body forward-references them via \ref.
+\renewcommand{\thetable}{B.\arabic{table}}
+\setcounter{table}{0}
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{\textbf{Composition of the 35-backbone set.}}
+  \label{tab:backbones}
+  \begin{tabular}{@{}ll@{}}
+    \toprule
+    property & value \\
+    \midrule
+    backbones & 35 \\
+    length & median 91, mean 133, range 56--415 \\
+    length bins & $<$100 aa: 19 $\cdot$ 100--200: 9 $\cdot$ 200--300: 4 $\cdot$ 300--500: 3 \\
+    experimental method & X-ray 30, NMR 5 \\
+    X-ray resolution & median 1.80\,\AA, range 1.00--2.70\,\AA \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{\textbf{The $3\times3$ control plane (7 backbones, 432 designs).}
+  Cells are surface apolar fraction / net charge; scTM is 0.9229--0.9348 across
+  the plane. Rows move surface apolarity and leave charge roughly unchanged;
+  columns do the converse.}
+  \label{tab:control-plane}
+  \begin{tabular}{@{}lrrr@{}}
+    \toprule
+    surf $\lambda$ \textbackslash{} charge $\lambda$ & $-2$ & 0 & $+2$ \\
+    \midrule
+    0 & 0.376 / $+7.33$ & 0.404 / $+0.41$ & 0.398 / $-5.01$ \\
+    5 & 0.305 / $+7.65$ & 0.307 / $-0.38$ & 0.311 / $-6.80$ \\
+    10 & 0.257 / $+8.49$ & 0.254 / $+1.10$ & 0.261 / $-6.56$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \small
+  \setlength{\tabcolsep}{5pt}
+  \caption{\textbf{Oracle comparison on the same 104 folded structures.}}
+  \label{tab:oracle}
+  \begin{tabular}{@{}lrrr@{}}
+    \toprule
+    Arm & Protenix-2 scTM & $\Delta$ vs vanilla & ESMFold $\Delta$ (same subset) \\
+    \midrule
+    vanilla & 0.7238 & --- & --- \\
+    SolubleMPNN & 0.7877 & $+0.0639$ & $-0.0044$ \\
+    MembraneMPNN (global) & 0.7332 & $+0.0094$ & $-0.0078$ \\
+    LigandMPNN & 0.7383 & $+0.0145$ & $-0.0027$ \\
+    guide surf $\lambda$10 & $\bm{0.8050}$ & $\bm{+0.0812}$ & $-0.0039$ \\
+    guide agg $\lambda$10 & 0.7936 & $+0.0698$ & $-0.0023$ \\
+    guide charge $\lambda{+}3$ & 0.7775 & $+0.0537$ & $-0.0006$ \\
+    guide surf10/charge$-2$ & 0.7797 & $+0.0559$ & $-0.0066$ \\
+    guide surf10/charge$+2$ & 0.7747 & $+0.0509$ & $-0.0035$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+\begin{table}[H]
+  \centering
+  \footnotesize
+  \setlength{\tabcolsep}{3pt}
+  \caption{\textbf{Temperature ablation of the surface-guided arm (33 backbones,
+  8 designs per cell).} The $T{=}0.1$ rows are the 8-design reference run, not
+  the 16-design main table.}
+  \label{tab:temperature}
+  \begin{tabular}{@{}lrrrrr@{}}
+    \toprule
+    arm & diversity & scTM & surface apolar & aggregation 5-mer & recovery \\
+    \midrule
+    ProteinMPNN ($T{=}0.1$, 8 designs) & 0.278 & 0.8434 & 0.438 & 0.217 & 0.439 \\
+    guide surf $\lambda$10 ($T{=}0.1$) & 0.277 & 0.8721 & 0.259 & 0.122 & 0.448 \\
+    \textbf{guide surf $\lambda$10 ($T{=}0.3$)} & \textbf{0.390} & \textbf{0.8608} & \textbf{0.133} & \textbf{0.089} & 0.411 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \footnotesize
+  \setlength{\tabcolsep}{2pt}
+  \caption{\textbf{Per-backbone heterogeneity of the paired $\Delta$scTM.}}
+  \label{tab:heterogeneity}
+  \begin{tabular}{@{}lrrrr@{}}
+    \toprule
+    arm & \shortstack[r]{median per-backbone\\$\Delta$scTM} & \shortstack[r]{mean\\$\Delta$scTM} & \shortstack[r]{mean excluding\\collapses} & \shortstack[r]{max per-backbone\\collapse} \\
+    \midrule
+    SolubleMPNN & $-0.001$ & $+0.0013$ & --- & 0.15 \\
+    \textbf{HyperMPNN} & $\bm{-0.005}$ & $\bm{-0.0635}$ & $\bm{-0.0140}$ & $\bm{0.63}$ \\
+    MembraneMPNN (global) & $-0.001$ & $+0.0207$ & --- & 0.49 \\
+    LigandMPNN & $+0.002$ & $+0.0176$ & --- & 0.50 \\
+    guide surf $\lambda$10 & $+0.001$ & $+0.0066$ & --- & 0.18 \\
+    guide agg $\lambda$10 & $+0.001$ & $+0.0081$ & --- & 0.16 \\
+    guide charge $\lambda{+}3$ & $-0.001$ & $-0.0019$ & --- & 0.09 \\
+    \bottomrule
+  \end{tabular}
+\end{table}

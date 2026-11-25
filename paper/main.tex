@@ -1,0 +1,74 @@
+% DevMPNN-Bench / v2 manuscript -- official NeurIPS 2026 style,
+% Evaluations & Datasets track (analysis contribution).
+%
+% Source of truth: ../paper_v1.md, version converted here = 465 lines,
+% MD5 0e00dd407864cc4a685390be4d93e1ef.
+%
+% Official NeurIPS 2026 style file (neurips_2026.sty from the NeurIPS 2026
+% formatting zip). The style sets its own 5.5in x 9in text block, Times/
+% Helvetica fonts, loads natbib itself and (in submission mode) adds line
+% numbers; we do not override any of that. See CONVERSION_NOTES.md for the
+% conversion map and BUILD.md for build instructions.
+%
+% The Chinese author-facing summary at the top of paper_v1.md is intentionally
+% not typeset (the source labels it as a note for the authors); it is kept
+% verbatim in AUTHOR_SUMMARY_zh.md.
+%
+% Author block: in anonymous mode ([eandd] without final/preprint) the style
+% prints its own "Anonymous Author(s)" placeholder, so \author is only used for
+% local non-anonymous checks such as [preprint,eandd].
+
+\documentclass{article}
+
+% numbered citations; natbib is loaded by the style file
+\PassOptionsToPackage{numbers,sort&compress}{natbib}
+
+% official NeurIPS 2026 style, Evaluations & Datasets track, anonymous submission
+\usepackage[eandd]{neurips_2026}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{float}          % [H] pinning for the appendix-B tables
+\usepackage[hidelinks]{hyperref}
+
+% task-4 page-budget reduction: the style's default caption gap is 7pt.
+\setlength{\abovecaptionskip}{2pt}
+
+\graphicspath{{figs/}{../figs/}}
+
+\title{What Developability Benchmarks Do Not Measure: Controllability,
+Leakage and Bimodal Failure in Inverse-Folding Evaluation}
+
+\author{Anonymous Author(s)}
+
+\begin{document}
+
+\maketitle
+
+\input{sections/abstract}
+\input{sections/intro}
+\input{sections/related}
+\input{sections/method}
+\input{sections/results}
+\input{sections/discussion}
+\input{sections/limitations}
+
+% Page-count marker for the main text: the last body page is recorded in
+% main.aux as the page of this label (References and appendices follow).
+\label{endofbody}
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\input{sections/appendix_properties}
+\input{sections/appendix_b}
+\input{sections/appendix_c}
+\input{sections/checklist}
+
+\end{document}

@@ -1,0 +1,39 @@
+\section{Limitations}
+\label{sec:limitations}
+
+\begin{enumerate}
+\item \textbf{Scope of properties}: only composition-linear objectives are
+  covered, so the closed-form guidance applies; aggregation is approximated by a
+  windowed exposure proxy, not a learned predictor. Guidance through a learned
+  predictor (ProteinGuide's TAG) or through any non-linear objective is not
+  tested here, and the paper should not be read as evidence about that class of
+  methods.
+\item \textbf{Scope of structures}: 35 monomers, all soluble and experimental;
+  no membrane proteins, complexes or de novo backbones.
+  Only one sampling temperature (0.1) is used for the main table.
+\item \textbf{Oracles}: ESMFold v1 is the primary oracle and single-sequence
+  Protenix-2 the check; both are weaker than the ESMFold2/Boltz-2 setting used
+  by recent design papers, and feature-wise they disagree.
+\item \textbf{Power}: 16 designs per (arm, backbone) and a $\pm 0.008$
+  seed-to-seed floor; effects below that are unresolved. Only ProteinMPNN was
+  replicated across seeds, and the temperature ablation in \S4.1b still uses the
+  8-design run.
+\item \textbf{No wet lab}: every property is a computational proxy; published
+  correlations between sequence-side solubility predictors and measured yield
+  are weak ($r \leq 0.32$).
+\item \textbf{Backbone composition}: the 35 backbones skew small (19 of 35 under
+  100 residues) and include 5 NMR entries, so absolute scTM values are
+  optimistic for the 150--300 residue regime that real campaigns target. The
+  paired design of every comparison removes most of this bias from arm-to-arm
+  differences, but not from the absolute numbers.
+\item \textbf{One alignment artefact}: for backbone 1TEN the ProteinMPNN-family
+  arms emit 90 residues while chain A of the reference file has 89 C$\alpha$
+  atoms (LigandMPNN emits 89), so those four arms are scored on a shifted
+  alignment and collapse to $\sim$0.44 there while the LigandMPNN arms score
+  $\sim$0.94 on the same backbone. The artefact is identical in the 8- and
+  16-design runs, so it is not a regression, but it inflates the two LigandMPNN
+  arms' paired means by roughly $+0.015$. Excluding 1TEN, MembraneMPNN's estimate
+  falls from $+0.021$ to $+0.006$ (CI $[-0.003, +0.018]$) and LigandMPNN's from
+  $+0.018$ to $+0.003$, while no other arm moves; we therefore do not claim a
+  membrane or ligand scTM gain from this benchmark.
+\end{enumerate}

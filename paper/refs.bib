@@ -1,0 +1,298 @@
+% =====================================================================
+% refs.bib -- verified bibliography for DevMPNN-Bench
+% Source manuscript: invfold_survey/paper_v1.md
+% Produced by teammate `lit-refs` (shared task-3). Verification date:
+% 2026-11-23. Every field below was checked against a primary or
+% publisher record; the per-entry evidence URLs, confidence scores and
+% omitted fields are documented in ../docs/REFERENCES.md.
+%
+% The 19 keys are fixed -- the LaTeX manuscript (paper/main.tex and
+% paper/sections/*.tex) already cites exactly these, see
+% paper/CITATION_MAP.md. Do not rename or add keys here without updating
+% the manuscript.
+% =====================================================================
+
+% --- Inverse folding -------------------------------------------------
+
+% Verified: NeurIPS 2019 proceedings abstract page + official proceedings
+% BibTeX (no DOI is assigned to NeurIPS 2019 papers; omit doi/pages).
+@inproceedings{struc_transformer,
+  author    = {Ingraham, John and Garg, Vikas and Barzilay, Regina and Jaakkola, Tommi},
+  title     = {Generative Models for Graph-Based Protein Design},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume    = {32},
+  year      = {2019},
+  publisher = {Curran Associates, Inc.},
+  url       = {https://proceedings.neurips.cc/paper_files/paper/2019/file/f3a4ff4839c56a5f460c88cce3666a2b-Paper.pdf}
+}
+
+% Verified: arXiv:2009.01411 (v3, 2021) + ICLR 2021 Spotlight record
+% (OpenReview forum 1YLJDvSx6J4). No DOI/pages for ICLR papers.
+@inproceedings{gvp,
+  author    = {Jing, Bowen and Eismann, Stephan and Suriana, Patricia and Townshend, Raphael J. L. and Dror, Ron},
+  title     = {Learning from Protein Structure with Geometric Vector Perceptrons},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2021},
+  note      = {Spotlight; arXiv:2009.01411},
+  url       = {https://arxiv.org/abs/2009.01411}
+}
+
+% Verified: Crossref 10.1126/science.add2187 (Science 378(6615):49-56,
+% 2022-10-07; 22 authors).
+@article{proteinmpnn,
+  author  = {Dauparas, J. and Anishchenko, I. and Bennett, N. and Bai, H. and
+             Ragotte, R. J. and Milles, L. F. and Wicky, B. I. M. and Courbet, A. and
+             de Haas, R. J. and Bethel, N. and Leung, P. J. Y. and Huddy, T. F. and
+             Pellock, S. and Tischer, D. and Chan, F. and Koepnick, B. and
+             Nguyen, H. and Kang, A. and Sankaran, B. and Bera, A. K. and
+             King, N. P. and Baker, D.},
+  title   = {Robust Deep Learning--Based Protein Sequence Design Using {ProteinMPNN}},
+  journal = {Science},
+  volume  = {378},
+  number  = {6615},
+  pages   = {49--56},
+  year    = {2022},
+  doi     = {10.1126/science.add2187}
+}
+
+% Verified: PMLR v162 page (ICML 2022, PMLR 162:8946-8970) -- the page
+% serves the official BibTeX used here.
+@inproceedings{esm_if1,
+  author    = {Hsu, Chloe and Verkuil, Robert and Liu, Jason and Lin, Zeming and
+               Hie, Brian and Sercu, Tom and Lerer, Adam and Rives, Alexander},
+  title     = {Learning Inverse Folding from Millions of Predicted Structures},
+  booktitle = {Proceedings of the 39th International Conference on Machine Learning},
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {162},
+  pages     = {8946--8970},
+  year      = {2022},
+  publisher = {PMLR},
+  url       = {https://proceedings.mlr.press/v162/hsu22a.html}
+}
+
+% Verified: arXiv:2209.12643 + ICLR 2023 record (OpenReview forum
+% oMsN9TYwJ0j); the ICLR version lists three authors (the arXiv v4 adds
+% P. Chacon -- see docs/REFERENCES.md).
+@inproceedings{pifold,
+  author    = {Gao, Zhangyang and Tan, Cheng and Li, Stan Z.},
+  title     = {{PiFold}: Toward Effective and Efficient Protein Inverse Folding},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2023},
+  note      = {arXiv:2209.12643},
+  url       = {https://openreview.net/forum?id=oMsN9TYwJ0j}
+}
+
+% Verified: Crossref 10.1038/s41592-025-02626-1 (Nature Methods
+% 22(4):717-723; published online 2025-03-28; PMC11978504 / PMID 40155723).
+@article{ligandmpnn,
+  author  = {Dauparas, Justas and Lee, Gyu Rie and Pecoraro, Robert and An, Linna and
+             Anishchenko, Ivan and Glasscock, Cameron and Baker, David},
+  title   = {Atomic Context-Conditioned Protein Sequence Design Using {LigandMPNN}},
+  journal = {Nature Methods},
+  volume  = {22},
+  number  = {4},
+  pages   = {717--723},
+  year    = {2025},
+  doi     = {10.1038/s41592-025-02626-1}
+}
+
+% --- Developability-oriented (retrained) models ----------------------
+
+% The SolubleMPNN model is introduced in this paper. Verified: Crossref
+% 10.1038/s41586-024-07601-y (Nature 631(8020):449-458, 2024-06-19;
+% PMC11236705 / PMID 38898281).
+@article{soluble_mpnn,
+  author  = {Goverde, Casper A. and Pacesa, Martin and Goldbach, Nicolas and
+             Dornfeld, Lars J. and Balbi, Petra E. M. and Georgeon, Sandrine and
+             Rosset, St{\'e}phane and Kapoor, Srajan and Choudhury, Jagrity and
+             Dauparas, Justas and Schellhaas, Christian and Kozlov, Simon and
+             Baker, David and Ovchinnikov, Sergey and Vecchio, Alex J. and
+             Correia, Bruno E.},
+  title   = {Computational Design of Soluble and Functional Membrane Protein Analogues},
+  journal = {Nature},
+  volume  = {631},
+  number  = {8020},
+  pages   = {449--458},
+  year    = {2024},
+  doi     = {10.1038/s41586-024-07601-y}
+}
+
+% Verified: Crossref 10.1101/2024.11.26.625397 (bioRxiv preprint,
+% posted 2024-12; also PubMed 39651244). No journal version found as of
+% 2026-11-23.
+@article{hypermpnn,
+  author  = {Ertelt, Moritz and Schlegel, Phillip and Beining, Max and
+             Kaysser, Leonard and Meiler, Jens and Schoeder, Clara T.},
+  title   = {{HyperMPNN} -- A General Strategy to Design Thermostable Proteins Learned from Hyperthermophiles},
+  journal = {bioRxiv},
+  year    = {2024},
+  doi     = {10.1101/2024.11.26.625397},
+  note    = {Preprint}
+}
+
+% MembraneMPNN has no publication: it is distributed only as model
+% weights in the LigandMPNN repository (README sections 24-25:
+% global_label_membrane_mpnn_v_48_020.pt and
+% per_residue_label_membrane_mpnn_v_48_020.pt). Software/misc entry, as
+% instructed. The author field is deliberately omitted because authorship
+% of these weights is not documented anywhere verifiable.
+@misc{membranempnn,
+  title        = {{MembraneMPNN} Model Weights: Membrane-Label--Conditioned {ProteinMPNN}},
+  howpublished = {\url{https://github.com/dauparas/LigandMPNN}},
+  year         = {2025},
+  note         = {Software/model weights only; no associated publication found.
+                  Global-label and per-residue-label checkpoints shipped in the
+                  LigandMPNN repository. Accessed 2026-11-23.}
+}
+
+% --- Inference-time guidance -----------------------------------------
+
+% Verified: Crossref 10.1038/s41587-026-03207-z (Nature Biotechnology,
+% online 2026-07-29) + arXiv:2505.04823 (v4, 2026-01-16).
+% NOTE: paper_v1.md says "ProteinGuide (2025)" (the preprint year); the
+% peer-reviewed version is 2026. Numbered citation style hides the
+% mismatch, but an author-year style would need the text updated.
+@article{proteinguide,
+  author  = {Xiong, Junhao and Gaur, Ishan and Lukarska, Maria and Nisonoff, Hunter and
+             Oltrogge, Luke M. and Savage, David F. and Listgarten, Jennifer},
+  title   = {Property Guidance for Protein Sequence Generative Models with {ProteinGuide}},
+  journal = {Nature Biotechnology},
+  year    = {2026},
+  doi     = {10.1038/s41587-026-03207-z},
+  note    = {Advance online publication; preprint arXiv:2505.04823 (2025)}
+}
+
+% Verified: arXiv:2406.01572 (v4, 2025-03-25) + OpenReview venue record
+% "ICLR 2025 Poster" (forum XsgHl54yO7).
+@inproceedings{discrete_guidance,
+  author    = {Nisonoff, Hunter and Xiong, Junhao and Allenspach, Stephan and Listgarten, Jennifer},
+  title     = {Unlocking Guidance for Discrete State-Space Diffusion and Flow Models},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2025},
+  note      = {arXiv:2406.01572},
+  url       = {https://arxiv.org/abs/2406.01572}
+}
+
+% Verified: arXiv:2511.09216 (v1 2025-11-12, v2 2026-04-06). Preprint,
+% no DOI/journal version found as of 2026-11-23.
+@article{fk_rfdiffusion,
+  author  = {Hartman, Erik and Wallin, Jonas and Malmstr{\"o}m, Johan and Olsson, Jimmy},
+  title   = {Controllable Protein Design with Particle-Based {Feynman--Kac} Steering},
+  journal = {arXiv preprint},
+  year    = {2025},
+  eprint  = {2511.09216},
+  archivePrefix = {arXiv},
+  note    = {Preprint}
+}
+
+% Verified: arXiv:2609.05451 (v1, 2026-08-04); authors and title from the
+% arXiv API record. Preprint only.
+@article{zetadial,
+  author  = {Syed, Mohammed Sameer and Dinneen, Tamara},
+  title   = {{ZetaDial}: Dialing Net Charge of Protein Binders at Inference Time for Therapeutic Developability},
+  journal = {arXiv preprint},
+  year    = {2026},
+  eprint  = {2609.05451},
+  archivePrefix = {arXiv},
+  note    = {Preprint}
+}
+
+% --- Benchmarks ------------------------------------------------------
+
+% Verified: NeurIPS 2023 proceedings abstract page + official BibTeX +
+% Crossref 10.52202/075280-2983 (pp. 68207-68220). FIRST AUTHOR IS
+% GAO (Zhangyang Gao), not Tan -- the anchor in the task brief said
+% "Tan et al."; Tan is second author, see docs/REFERENCES.md.
+@inproceedings{proteininvbench,
+  author    = {Gao, Zhangyang and Tan, Cheng and Zhang, Yijie and Chen, Xingran and
+               Wu, Lirong and Li, Stan Z.},
+  title     = {{ProteinInvBench}: Benchmarking Protein Inverse Folding on Diverse Tasks, Models, and Metrics},
+  booktitle = {Advances in Neural Information Processing Systems 36 (NeurIPS 2023), Datasets and Benchmarks Track},
+  volume    = {36},
+  pages     = {68207--68220},
+  year      = {2023},
+  doi       = {10.52202/075280-2983},
+  url       = {https://proceedings.neurips.cc/paper_files/paper/2023/hash/d73078d49799693792fb0f3f32c57fc8-Abstract-Datasets_and_Benchmarks.html}
+}
+
+% Verified: arXiv:2502.12479 (v1 2025-02-18, v2 2025-02-19). Preprint;
+% no peer-reviewed version found as of 2026-11-23.
+@article{motifbench,
+  author  = {Zheng, Zhuoqi and Zhang, Bo and Didi, Kieran and Yang, Kevin K. and
+             Yim, Jason and Watson, Joseph L. and Chen, Hai-Feng and Trippe, Brian L.},
+  title   = {{MotifBench}: A Standardized Protein Design Benchmark for Motif-Scaffolding Problems},
+  journal = {arXiv preprint},
+  year    = {2025},
+  eprint  = {2502.12479},
+  archivePrefix = {arXiv},
+  note    = {Preprint}
+}
+
+% Verified: NeurIPS 2023 proceedings abstract page + official BibTeX +
+% Crossref 10.52202/075280-2810 (pp. 64331-64379).
+@inproceedings{proteingym,
+  author    = {Notin, Pascal and Kollasch, Aaron and Ritter, Daniel and van Niekerk, Lood and
+               Paul, Steffanie and Spinner, Han and Rollins, Nathan and Shaw, Ada and
+               Orenbuch, Rose and Weitzman, Ruben and Frazer, Jonathan and Dias, Mafalda and
+               Franceschi, Dinko and Gal, Yarin and Marks, Debora},
+  title     = {{ProteinGym}: Large-Scale Benchmarks for Protein Fitness Prediction and Design},
+  booktitle = {Advances in Neural Information Processing Systems 36 (NeurIPS 2023), Datasets and Benchmarks Track},
+  volume    = {36},
+  pages     = {64331--64379},
+  year      = {2023},
+  doi       = {10.52202/075280-2810},
+  url       = {https://proceedings.neurips.cc/paper_files/paper/2023/hash/cac723e5ff29f65e3fcbb0739ae91bee-Abstract-Datasets_and_Benchmarks.html}
+}
+
+% Verified: NeurIPS 2021 Datasets & Benchmarks Track (Round 2) abstract
+% page + official BibTeX; also bioRxiv 10.1101/2021.11.09.467890.
+% The task anchor said "bioRxiv 2021"; the peer-reviewed NeurIPS 2021
+% version is cited here instead (both verified).
+@inproceedings{flip,
+  author    = {Dallago, Christian and Mou, Jody and Johnston, Kadina E. and
+               Wittmann, Bruce J. and Bhattacharya, Nicholas and Goldman, Samuel and
+               Madani, Ali and Yang, Kevin K.},
+  title     = {{FLIP}: Benchmark Tasks in Fitness Landscape Inference for Proteins},
+  booktitle = {Proceedings of the Neural Information Processing Systems Track on Datasets and Benchmarks},
+  volume    = {1},
+  year      = {2021},
+  note      = {NeurIPS 2021 Datasets and Benchmarks Track (Round 2); preprint: bioRxiv 10.1101/2021.11.09.467890},
+  url       = {https://datasets-benchmarks-proceedings.neurips.cc/paper_files/paper/2021/hash/2b44928ae11fb9384c4cf38708677c48-Abstract-round2.html}
+}
+
+% --- Oracles ---------------------------------------------------------
+
+% Verified: Crossref 10.1126/science.ade2574 (Science 379(6637):1123-1130,
+% 2023-03-17; 15 authors).
+@article{esmfold,
+  author  = {Lin, Zeming and Akin, Halil and Rao, Roshan and Hie, Brian and Zhu, Zhongkai and
+             Lu, Wenting and Smetanin, Nikita and Verkuil, Robert and Kabeli, Ori and
+             Shmueli, Yaniv and dos Santos Costa, Allan and Fazel-Zarandi, Maryam and
+             Sercu, Tom and Candido, Salvatore and Rives, Alexander},
+  title   = {Evolutionary-Scale Prediction of Atomic-Level Protein Structure with a Language Model},
+  journal = {Science},
+  volume  = {379},
+  number  = {6637},
+  pages   = {1123--1130},
+  year    = {2023},
+  doi     = {10.1126/science.ade2574}
+}
+
+% The benchmark uses Protenix 2.0.0 (bench script MODEL = "protenix-v2").
+% Verified: Crossref/OpenAlex 10.64898/2026.04.10.717613 (bioRxiv
+% 2026.04.10.717613) + the citation block of github.com/bytedance/Protenix.
+% The earlier Protenix/AF3-reproduction report is
+% bioRxiv 10.1101/2025.01.08.631967 (2025) and is noted below so either
+% reference can be swapped in if the authors prefer it.
+@article{protenix,
+  author  = {Zhang, Yuxuan and Gong, Chengyue and Sun, Jinyuan and Guan, Jiaqi and
+             Ren, Milong and Xue, Song and Zhang, Hanyu and Ma, Wenzhi and
+             Liu, Zhenyu and Chen, Xinshi and Xiao, Wenzhi},
+  title   = {{Protenix-v2}: Broadening the Reach of Structure Prediction and Biomolecular Design},
+  journal = {bioRxiv},
+  year    = {2026},
+  doi     = {10.64898/2026.04.10.717613},
+  note    = {Preprint. The model evaluated here is Protenix 2.0.0 (``Protenix-2'');
+             the original Protenix/AF3-reproduction report is
+             bioRxiv 10.1101/2025.01.08.631967 (2025).}
+}

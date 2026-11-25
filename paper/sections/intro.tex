@@ -1,0 +1,86 @@
+\section{Introduction}
+\label{sec:intro}
+
+Inverse folding is solved well enough to be a commodity: ProteinMPNN~\cite{proteinmpnn}
+has 1.66 M parameters (measured from the released weights; the paper reports
+1.678 M in its own table), fits on a single A100, and recovers about 52\% of
+native residues on its own PDB test set. The bottleneck has moved downstream ---
+to whether the designed sequence can actually be made. Solubility, aggregation,
+expression and electrostatic behaviour are now the binding constraints in real
+campaigns, and the community's answer has been to \textbf{retrain the prior} on
+filtered data: SolubleMPNN~\cite{soluble_mpnn} excludes transmembrane entries,
+HyperMPNN~\cite{hypermpnn} trains on thermophile structures,
+MembraneMPNN~\cite{membranempnn} conditions on a membrane label.
+
+That answer has five consequences for evaluation practice, and this paper
+measures each of them. The first three are properties of the models; the last
+two are properties of how we evaluate them.
+
+\paragraph{P1 --- single points.}
+A retrained model returns one point in property space. There is no knob for
+``20\% less hydrophobic than last time'', only a different checkpoint.
+
+\paragraph{P2 --- unreported leakage.}
+Moving one property moves others. SolubleMPNN, asked only to remove
+transmembrane proteins, also shifts net charge by $-3.5$ units and pI by
+$-1.2$. Neither its main text nor the follow-up literature we could find reports
+this.
+
+\paragraph{P3 --- blind acceptance metrics.}
+Recovery, scTM and pLDDT do not see P2. In our data the six published models,
+which disagree by 6.0 charge units, are indistinguishable on every standard
+metric (scTM spans 0.78 to 0.88, and the spread is driven by one retrained model
+rather than by the property edits).
+
+\paragraph{P4 --- saturation.}
+More than a third of the benchmark backbones are at ceiling for every model, so
+those cells can only confirm agreement; and because arm differences are bimodal,
+the arm mean is dominated by a handful of catastrophic cells. An evaluation that
+reports only means therefore cannot tell ``uniformly slightly worse'' from
+``fine everywhere except three catastrophic failures''.
+
+\paragraph{P5 --- oracle dependence.}
+The comparison is reported against one refolding oracle. We show that a second
+oracle shifts absolute scTM by 0.15 and does not preserve the arm ranking, which
+makes single-leaderboard reporting an artefact of the choice of oracle rather
+than a property of the models.
+
+Our contributions:
+
+\begin{enumerate}
+\item \textbf{An evaluation instrument} for control-style design methods: the
+  controllability slope $k$, leakage, and the per-backbone tail, each with a
+  protocol (backbone as the unit of analysis, paired bootstrap, Holm correction,
+  and an explicit minimum detectable effect) that makes negative results
+  interpretable.
+\item \textbf{A controlled comparison of the whole published
+  developability-MPNN family} (ProteinMPNN, SolubleMPNN, HyperMPNN,
+  MembraneMPNN, LigandMPNN) against jointly-scored guidance arms on 35 backbones
+  and 5,936 designs, with a second oracle.
+\item \textbf{Five findings about current practice}, each tied to a measured
+  failure: 4--13\% property movement, 6.0 units of inter-model disagreement
+  invisible to standard metrics, bimodal tail behaviour hidden by means, a third
+  of the benchmark saturated, and a ranking that does not survive a change of
+  oracle. Two further results follow from measuring control on the full
+  benchmark: the control-folding frontier is flat over a tenfold range of control
+  strength, and the position-specific part of the reward is load-bearing (a
+  global penalty controls the target better but costs 0.033 scTM and leaks
+  charge).
+\item \textbf{A closed-form guidance baseline}: for composition-linear
+  properties the any-order-autoregressive guidance of
+  ProteinGuide~\cite{proteinguide} reduces to a constant per-amino-acid logit
+  bias, so a frozen ProteinMPNN becomes a calibrated, reversible knob at no
+  extra predictor cost --- the cheapest possible control method, used here as
+  the instrument that exposes what the published models' single points cannot
+  show.
+\end{enumerate}
+
+\textbf{What is and is not new here.} The any-order-autoregressive guidance
+identity is due to ProteinGuide~\cite{discrete_guidance,proteinguide} (Nisonoff
+et al., 2025; Xiong et al., 2026); we do not claim it. Our contribution is (i)
+the closed-form specialisation to composition-linear rewards, which needs no
+property predictor at inference time, and (ii) the benchmark that measures what
+such control costs, including the leakage and per-backbone analyses. Guidance
+through a learned predictor for non-linear objectives (the TAG route in
+ProteinGuide) is deliberately out of scope and is listed in the limitations; a
+reader should not read this paper as a comparison of guidance algorithms.

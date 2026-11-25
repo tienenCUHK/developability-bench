@@ -1,0 +1,43 @@
+\begin{abstract}
+Evaluation practice for developability-oriented inverse folding rests on three
+assumptions: that foldability and recovery capture a design method's quality;
+that moving a developability property is a property of the model rather than a
+dialable control; and that one refolding oracle settles the comparison. We test
+all three on the published developability-MPNN family --- ProteinMPNN,
+SolubleMPNN, HyperMPNN, MembraneMPNN and LigandMPNN --- plus five plug-and-play
+guidance arms, over 35 backbones, 10 arms and 5,936 designs with 5,936 ESMFold
+refolds and a second, independent oracle.
+We add three measurements that current evaluations do not report: the
+\textbf{controllability slope} $k$ (achieved property change per unit of
+requested control), \textbf{leakage} (how far unrequested properties drift), and
+the \textbf{per-backbone tail} (worst-case behaviour instead of the arm mean).
+They show that current practice is measuring the wrong quantity in a way that is
+invisible to its own metrics.
+Published developability models move surface hydrophobicity by only 4 to 13\%
+relative to ProteinMPNN and disagree with each other by 6.0 charge units, yet
+standard metrics cannot tell them apart. The controllability slope is
+linear and measurable on the full benchmark: $k = -0.010$ surface-apolar
+fraction per unit of control strength (per-backbone $R^2 = 0.94$, 35/35
+backbones), while the foldability slope is zero to three decimals
+($k_{\mathrm{scTM}} = +0.00001$ per unit, $p = 0.98$), so control strength
+can be raised tenfold with no measurable cost and the surface property falls
+58.6\%. Closed-form guidance on a frozen
+ProteinMPNN moves surface hydrophobicity by 32--42\%, aggregation-prone 5-mers
+by 42\% and net charge by 10.9 units, with a paired scTM cost whose 95\%
+bootstrap CI contains zero for every arm and whose upper bound is 0.028 scTM
+(3.4\% relative). Two properties are independently controllable. Leakage is
+predictable from the reward weight vector: targeting GRAVY drives net charge
+from $+0.2$ to $+20$ while a windowed aggregation reward leaks 0.4 units. The
+arm mean is the wrong summary: HyperMPNN differs from ProteinMPNN by $-0.005$
+scTM on the median backbone but $-0.064$ on average, because three of
+thirty-five backbones collapse by 0.55 to 0.63, and 13 of 35 backbones sit at
+ceiling for every arm and cannot discriminate at all. Finally, changing the
+oracle shifts absolute scTM by 0.15 and does not preserve the arm ranking
+(Spearman $-0.18$ over nine arms), so single-leaderboard reporting is not
+defensible.
+We release the per-design matrix, aggregate intervals with an explicit minimum
+detectable effect of 0.0147 scTM after correction, and a reproduction artifact.
+The actionable recommendation is to report control curves and per-backbone
+tails rather than arm means, and to state the practical equivalence bound
+instead of ``no significant difference''.
+\end{abstract}
