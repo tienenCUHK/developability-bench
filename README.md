@@ -1,10 +1,15 @@
-# DevMPNN-Bench — anonymous artifact
+# DevMPNN-Bench — submission artifact
 
-Submission artifact for *"What Developability Benchmarks Do Not Measure: Controllability, Leakage and Bimodal
-Failure in Inverse-Folding Evaluation"* (NeurIPS Evaluations & Datasets track).
+Artifact for *"What Developability Benchmarks Do Not Measure: Controllability, Leakage and Bimodal Failure in
+Inverse-Folding Evaluation"* (NeurIPS Evaluations & Datasets track).
 
 The bundle contains the manuscript, the design matrix, both aggregates, the analysis code, the dataset metadata
-(Croissant core + RAI) and the environment pins. Nothing here identifies the authors.
+(Croissant core + RAI) and the environment pins.
+
+**Review mode.** This repository is hosted under the authors' account, so the submission is declared **single-blind**
+on the submission form (the E&D call for papers allows this when an artifact cannot be anonymised, and this one
+is a long-lived benchmark that the authors maintain). Git commits are authored as `Anonymous Authors` for the
+history, but the hosting account is public.
 
 ## What is in the box
 

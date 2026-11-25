@@ -1,13 +1,17 @@
-# Publishing the artifact for double-blind review
+# Publishing the artifact
 
-The E&D track requires the data and code to be reachable by reviewers **at submission time**, and the default
-review mode is double-blind. That combination means the hosting account itself must not identify the authors.
+The E&D track requires the data and code to be reachable by reviewers **at submission time**. The default review
+mode is double-blind, but the call for papers allows declaring single-blind when the artifact cannot be anonymised.
+
+**Decision taken for this submission: single-blind, hosted at
+<https://github.com/tienenCUHK/developability-bench>.** Declare single-blind on the submission form, and keep the
+repository public for the duration of review.
 
 Everything needed is prepared: `release/` is a git repository with two commits, author
 `Anonymous Authors <anonymous@example.org>`, no usernames, no server paths, no acknowledgements, and a checksum
 file. A portable copy also exists as `devmpnn-bench-anon.bundle`.
 
-The three standard routes, in order of preference:
+If the decision is ever reversed, the three standard routes are, in order of preference:
 
 ## Route A — anonymous GitHub account (most common)
 
